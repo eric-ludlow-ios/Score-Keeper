@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>E9C58A6B-B57E-4B39-99D7-8723B71777CB</string>
+	<string>3376A456-39DD-4167-A59A-3583C03F9828</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Score Keeper</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B06274EB5666600F64E051E490B192D68A31DB27</key>
-		<string>https://github.com/mbrownswag/Score-Keeper.git</string>
+		<string>https://github.com/esmludlow/Score-Keeper.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Score Keeper.xcodeproj</string>
@@ -21,7 +21,7 @@
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/mbrownswag/Score-Keeper.git</string>
+	<string>https://github.com/esmludlow/Score-Keeper.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
