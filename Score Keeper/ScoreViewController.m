@@ -14,7 +14,6 @@
 @property (strong, nonatomic) NSMutableArray *scoreLabels;
 
 
-
 @end
 
 
@@ -34,16 +33,21 @@
     
     self.scoreLabels = [NSMutableArray new];
     
+    for (int i=0; i<4; i++) {
+        [self addScoreView:i];
+    }
     
-    
-    [self addScoreView:0];
+    UIStepper *button = (UIStepper *)[self.view viewWithTag:index];
+    [button addTarget:self
+               action:@selector(scoreStepperValueChanges)
+    forControlEvents:UIControlEventValueChanged];
     
 }
 
 
 
-- (void)addScoreView:(int) index{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+- (void)addScoreView:(NSInteger)index{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, index*44, 320, 44)];
     
     UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, CGRectGetHeight(view.frame))];
     name.placeholder = @"Enter Name";
@@ -63,16 +67,16 @@
     [view addSubview:button];
     [self.scrollView addSubview:view];
     
-    [self.scoreLabels insertObject:@0 atIndex:index ];
+    [self.scoreLabels insertObject:score atIndex:index];
 }
--(void)scoreStepperValueChanges(id) {
+-(void)scoreStepperValueChanges {
     
+    UIStepper *button = (UIStepper *)[self.view viewWithTag:index];
+    NSString *valueString = button.value;
+    UILabel *valueLabel = self.scoreLabels[index];
+    valueLabel.text = valueString;
     
-    
-    
-    
-    
-    
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
