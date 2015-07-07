@@ -11,6 +11,8 @@
 @interface ScoreViewController ()
 
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) NSMutableArray *scoreLabels;
+
 
 
 @end
@@ -24,31 +26,54 @@
     // Do any additional setup after loading the view.
     
     //initialize scrollView, add it to main view of ScoreViewController
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    [self.view addSubview:scrollView];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), 1000);
+    
+    [self.view addSubview:self.scrollView];
     self.title = @"Awesome Score Keeper";
     
+    self.scoreLabels = [NSMutableArray new];
     
     
     
-    
+    [self addScoreView:0];
     
 }
 
-- (void)addScoreView {
-    UIView *view = [UIView new];
-    UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, CGRectGetHeight(self.view.frame))];
+
+
+- (void)addScoreView:(int) index{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    
+    UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, CGRectGetHeight(view.frame))];
     name.placeholder = @"Enter Name";
-    UILabel *score = [[UILabel alloc] initWithFrame:CGRectMake(160, 0, 80, CGRectGetHeight(self.view.frame))];
-    score.text = @"Score";
-    UIStepper *button = [[UIStepper alloc] initWithFrame:CGRectMake(240, 0, 80, CGRectGetHeight(self.view.frame))];
     
-    [self.view addSubview:name];
-    [self.view addSubview:score];
-    [self.view addSubview:button];
+    UILabel *score = [[UILabel alloc] initWithFrame:CGRectMake(160, 0, 60, CGRectGetHeight(view.frame))];
+    score.text = @"Score";
+    
+    UIStepper *button = [[UIStepper alloc] initWithFrame:CGRectMake(220, 10, 100, CGRectGetHeight(view.frame))];
+    button.tintColor = [UIColor purpleColor];
+    button.minimumValue = 0;
+    button.maximumValue = 500000;
+    button.stepValue = .01;
+    button.tag = index;
+    
+    [view addSubview:name];
+    [view addSubview:score];
+    [view addSubview:button];
     [self.scrollView addSubview:view];
+    
+    [self.scoreLabels insertObject:@0 atIndex:index ];
 }
-
+-(void)scoreStepperValueChanges(id) {
+    
+    
+    
+    
+    
+    
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
