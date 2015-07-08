@@ -8,7 +8,7 @@
 
 #import "ScoreViewController.h"
 
-@interface ScoreViewController ()
+@interface ScoreViewController ()<UITextFieldDelegate>  //01.need a protocol reference
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) NSMutableArray *scoreLabels;
@@ -37,11 +37,6 @@
         [self addScoreView:i];
     }
     
-    UIStepper *button = (UIStepper *)[self.view viewWithTag:index];
-    [button addTarget:self
-               action:@selector(scoreStepperValueChanges)
-    forControlEvents:UIControlEventValueChanged];
-    
 }
 
 
@@ -51,16 +46,25 @@
     
     UITextField *name = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, CGRectGetHeight(view.frame))];
     name.placeholder = @"Enter Name";
+    // 02.tag the textField, and make it its own delegate
+    name.tag = 99;
+    name.delegate = self;  //03.be sure to include the delegate protocol method somewhere below
     
     UILabel *score = [[UILabel alloc] initWithFrame:CGRectMake(160, 0, 60, CGRectGetHeight(view.frame))];
-    score.text = @"Score";
+    score.text = @"0";
     
     UIStepper *button = [[UIStepper alloc] initWithFrame:CGRectMake(220, 10, 100, CGRectGetHeight(view.frame))];
     button.tintColor = [UIColor purpleColor];
     button.minimumValue = 0;
     button.maximumValue = 500000;
-    button.stepValue = .01;
+    button.stepValue = 100;
     button.tag = index;
+    
+    //04.put the target-action for the button here in the addScoreView method
+    //(why???) (why not in the viewDidLoad method?)
+    [button addTarget:self
+               action:@selector(scoreStepperValueChanges:)
+     forControlEvents:UIControlEventValueChanged];
     
     [view addSubview:name];
     [view addSubview:score];
@@ -69,15 +73,29 @@
     
     [self.scoreLabels insertObject:score atIndex:index];
 }
--(void)scoreStepperValueChanges {
+-(void)scoreStepperValueChanges:(id)sender {
     
-    UIStepper *button = (UIStepper *)[self.view viewWithTag:index];
-    NSString *valueString = button.value;
+    //05.why doidn't this work? ::  UIStepper *button = (UIStepper *)[self.view viewWithTag:sender.tag];
+    //in place of these lines:
+    UIStepper *button = sender;
+    NSInteger index = button.tag;
+    double value = [button value];
+    
+    NSString* valueString = [NSString stringWithFormat:@"%d", (int)value]; //cast value as int
     UILabel *valueLabel = self.scoreLabels[index];
     valueLabel.text = valueString;
     
 
 }
+
+//06.UITextField Delegate method; since this is a protocol, the exact name and syntax of the method is given to us
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    //07.removing the keyboard when user hits enter; just need to resign the First Responder
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
