@@ -75,7 +75,7 @@
 }
 -(void)scoreStepperValueChanges:(id)sender {
     
-    //05.why doidn't this work? ::  UIStepper *button = (UIStepper *)[self.view viewWithTag:sender.tag];
+    //05.why didn't this work? ::  UIStepper *button = (UIStepper *)[self.view viewWithTag:sender.tag];
     //in place of these lines:
     UIStepper *button = sender;
     NSInteger index = button.tag;
